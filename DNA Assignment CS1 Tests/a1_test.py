@@ -1,5 +1,5 @@
 import unittest
-from testdata import *
+from a1 import *
 
 class TestPairGenes(unittest.TestCase):
     def test_empty_pairs(self):
@@ -144,23 +144,23 @@ class TestZipLength(unittest.TestCase):
         actual = zip_length(gene)
         self.assertEqual(expected, actual, "Pairs!")
 
-    def test_do_not_pair_all(self):
+    def test_do_not_pair_all_1(self):
         gene = 'AGTAGCGTATGTACGCTACT'
         expected = 9
         actual = zip_length(gene)
         self.assertEqual(expected, actual, "Do not pair all the way!")
 
-    def test_do_not_pair_all(self):
+    def test_do_not_pair_all_2(self):
         gene = 'GTTTTAGGTACCTCAAAC'
         expected = 4
         actual = zip_length(gene)
         self.assertEqual(expected, actual, "Do not pair all the way!")
 
-    def test_do_not_pair_all(self):
+    def test_do_not_pair_all_3(self):
         gene = 'GCGCTCACGGTCTACTAGACCGTGAGCGC'
         expected = 14
         actual = zip_length(gene)
-        self.assertEqual(expected, actual, "Do not pair all the way!")
+        self.assertEqual(expected, actual, "Odd lengthed string can only pair up to the char before the middle one")
 
     def test_backward_forward_do_not_pair(self):
         gene = 'ACCATGAAGTACCA'
