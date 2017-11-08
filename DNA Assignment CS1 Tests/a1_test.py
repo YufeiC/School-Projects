@@ -1,6 +1,7 @@
 import unittest
 from a1 import *
 
+
 class TestPairGenes(unittest.TestCase):
     def test_empty_pairs(self):
         gene1 = ''
@@ -9,7 +10,7 @@ class TestPairGenes(unittest.TestCase):
         actual = pair_genes(gene1, gene2)
         self.assertEqual(expected, actual, "2 empty pairs of genes should match!")
 
-    def test_basic_pairs1(self):
+    def test_basic_pairs_1(self):
         gene1 = 'A'
         gene2 = 'T'
         expected = True
@@ -58,14 +59,14 @@ class TestPairGenes(unittest.TestCase):
         actual = pair_genes(gene1, gene2)
         self.assertEqual(expected, actual, "gene1 == gene2, and they are pair genes")
 
-    def test_basic_pairs1(self):
+    def test_basic_pairs_3(self):
         gene1 = 'A'
         gene2 = 'C'
         expected = False
         actual = pair_genes(gene1, gene2)
         self.assertEqual(expected, actual, "A and C should not match!")
 
-    def test_basic_pairs2(self):
+    def test_basic_pairs_4(self):
         gene1 = 'C'
         gene2 = 'T'
         expected = False
@@ -86,7 +87,7 @@ class TestPairGenes(unittest.TestCase):
         actual = pair_genes(gene1, gene2)
         self.assertEqual(expected, actual, "Genes having different lengths should fail!")
 
-    def test_compare_self(self):
+    def test_compare_self_2(self):
         gene1 = 'GTTGACTGATTACACCCACG'
         gene2 = 'GTTGACTGATTACACCCACG'
         expected = False
@@ -114,7 +115,7 @@ class TestZipLength(unittest.TestCase):
         actual = zip_length(gene)
         self.assertEqual(expected, actual, "AT is 1 Match")
 
-    def test_basic_pairs(self):
+    def test_basic_pairs_2(self):
         gene = 'GC'
         expected = 1
         actual = zip_length(gene)
@@ -167,6 +168,7 @@ class TestZipLength(unittest.TestCase):
         expected = 0
         actual = zip_length(gene)
         self.assertEqual(expected, actual, "Palindromes do not pair")
+
 
 if __name__ == "__main__":
     unittest.main(exit=False)
