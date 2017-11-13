@@ -52,19 +52,18 @@ def zip_length(s):
         else:
             return 0
 
-def match_mask(gene, mask):
+def match_mask_one_way(gene, mask):
     '''
     (str, str) -> int
     '''
+    match_index = -1
 
     denumbered_mask = denumberfy_mask(mask)
-
     gene_size = len(gene)
     mask_size = len(denumbered_mask)
     mask = denumbered_mask
     gene_index = 0
     mask_index = 0
-    match_index = -1
 
     while (gene_index < gene_size and mask_index < mask_size):
 
@@ -94,7 +93,7 @@ def match_mask(gene, mask):
         gene_index += 1
 
     # if there were still
-    if mask_index < mask_size or gene_index < gene_size :
+    if mask_index < mask_size:
         match_index = -1
 
     return match_index
@@ -130,7 +129,48 @@ def match_nucleotide(nucleotide, sub_mask):
     return do_match
 
 
+def find_anchor_indices(nucleotides, start, end):
+    '''
+    (list, str, str) -> (int, int)
+    '''
+    start_size = len(start)
+    end_size = len(end)
+
+    return_start = -1
+    return_end = -1
+
+    for nucleotide in nucleotides:
+        if nucleotide == start[0]:
+            pass
+        if nucleotide == end[0]:
+            pass
+
+def match_mask(gene, mask):
+    forward_index = match_mask_one_way(gene, mask)
+    # backward index = len(gene) - end_index - 1
+    # end_index = start_index + len(denumberfied_mask) - 1
+
+    mask_size = len(denumberfy_mask(mask))
+    backward_index_one_way = match_mask_one_way(gene[::-1], mask)
+
+    if backward_index_one_way >= 0:
+        end_index = backward_index_one_way + mask_size - 1
+        backward_index = len(gene) - end_index - 1
+    else:
+        backward_index = -1
+
+    # negative cases
+    if (forward_index < 0):
+        return backward_index
+    elif (backward_index < 0):
+        return forward_index
+    # positive case
+    else:
+        return min(forward_index, backward_index)
+
 if __name__ == "__main__":
     #createPairGenes(7)
     #print(zip_length('AATCATGCAGCTGCATGATT'))
-    print(match_mask("TGGGG", "[AG]C3*"))
+    #print(match_mask("TGGGG", "[AG]C3*"))
+    print(match_mask("GTATA", "TA*"))
+    #print(pair_genes('GTCATGAGCTTTTGACAAGACCCCTTTGCTGCGGGATCCCGCTAAAAGATATAGCCCAGAGAAGTAGCTCGCGTCCGCTGCGGTTACGCGGCAATCCGCG', 'CAGTACTCGAAAACTGTTCTGGGGAAACGACGCCCTAGGGCGATTTTCTATATCGGGTCTCTTCATCGAGCGCAGGCGACGCCAATGCGCCGTTAGGCGT'))
